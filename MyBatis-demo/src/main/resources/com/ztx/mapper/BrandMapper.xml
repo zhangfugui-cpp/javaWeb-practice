@@ -1,0 +1,33 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ztx.mapper.BrandMapper">
+
+
+
+    <!--    数据库字段名称和Brand类属性不一样
+           1.起别名用sql语句中的as关键字
+           2.sql片段
+           不能自动封装数据-->
+
+    <resultMap id="BrandresultMap" type="Brand">
+        <result column="brand_name" property="brandName"></result>
+        <result column="company_name" property="companyName"></result>
+    </resultMap>
+
+    <select id="selectAll" resultMap="BrandresultMap">
+        select *
+        from tb_brand;
+    </select>
+
+    <select id="selectByIdBrand" resultMap="BrandresultMap">
+        select *
+        from tb_brand where id=#{id};
+    </select>
+
+    <insert id="add">
+       insert into tb_brand(brand_name, company_name, ordered, description, status)
+       values (#{brandName},#{companyName},#{ordered},#{description},#{status})
+    </insert>
+</mapper>
